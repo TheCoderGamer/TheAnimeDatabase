@@ -1,2 +1,3 @@
-API Docs: https://myanimelist.net/apiconfig/references/api/v2#tag/anime
+API Docs: https://myanimelist.net/apiconfig/references/api/v2
 API example: https://myanimelist.net/blog.php?eid=835707
+API Auth: https://myanimelist.net/apiconfig/references/authorization
