@@ -1,0 +1,2 @@
+API Docs: https://myanimelist.net/apiconfig/references/api/v2#tag/anime
+API example: https://myanimelist.net/blog.php?eid=835707
