@@ -1,27 +1,18 @@
 package pmm.ignacio.theanimedatabase;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
-import com.google.gson.JsonObject;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Base64;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -29,6 +20,7 @@ import pmm.ignacio.theanimedatabase.Anime.Anime;
 import pmm.ignacio.theanimedatabase.Anime.AnimeChunk;
 import pmm.ignacio.theanimedatabase.Anime.AnimeService;
 import pmm.ignacio.theanimedatabase.Anime.AnimeToken;
+import pmm.ignacio.theanimedatabase.Anime.AuthAnimeService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,11 +54,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // OAuth
         if (code == null){
             Log.i(TAG, "No code found, requesting new one : " + code);
             OAuthRequestPhase1();
         }
-        //getAnime();
+
+
+        // Retrofit API service
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        _service = retrofit.create(AnimeService.class);
 
 
         Button loadMoreButton = findViewById(R.id.load_more_button);
@@ -78,21 +78,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Get code from browser
+        // OAuth: Get code from browser
         Uri uri = getIntent().getData();
         if (uri != null && uri.toString().startsWith(REDIRECT_URL)) {
             code = uri.getQueryParameter("code");
             Log.d(TAG, "code: " + code);
             OAuthRequestPhase2();
         }
+
+
     }
 
 
     private void OAuthRequestPhase1() {
         // ----- Request code -----
         // Gen Code challenge (PKCE protocol)
-//        codeVerifier = PkceGenerator.INSTANCE.generateVerifier(128);
-        codeVerifier = "1234567890123456789012345678901234567890123456789012345678901234"; //TODO: (cambiar) inseguro pero funciona
+        codeVerifier = PkceGenerator.INSTANCE.generateVerifier(64);
         String codeChallenge = codeVerifier;
         Log.d(TAG, "code verifier: " + codeVerifier);
 
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 .baseUrl(AUTH_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        _service = retrofit.create(AnimeService.class);
+        AuthAnimeService authService = retrofit.create(AuthAnimeService.class);
 
         // Prepare request
         RequestBody body = new MultipartBody.Builder()
@@ -132,13 +133,13 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         // Send request
-        Call<AnimeToken> call = _service.getAnimeToken(body);
+        Call<AnimeToken> call = authService.getAnimeToken(body);
         call.enqueue(new Callback<AnimeToken>() {
             @Override
-            public void onResponse(Call<AnimeToken> call, Response<AnimeToken> response) {
+            public void onResponse(@NonNull Call<AnimeToken> call, @NonNull Response<AnimeToken> response) {
                 // Receive response
                 if (response.isSuccessful()) {
-                    accessToken = response.body().accessToken;
+                    accessToken = response.body() != null ? response.body().accessToken : null;
                     tokenType = response.body().tokenType;
                     refreshToken = response.body().refreshToken;
                     expiresIn = response.body().expiresIn;
@@ -148,13 +149,13 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "token expires in: " + response.body().expiresIn);
                     Log.d(TAG, "token refresh token: " + response.body().refreshToken);
                 } else {
-                    Log.e(TAG, "error: " + response.body().errorType);
+                    Log.e(TAG, "error: " + (response.body() != null ? response.body().errorType : null));
                     Log.e(TAG, "message: " + response.body().message);
                     Log.e(TAG, "hint: " + response.body().hint);
                 }
             }
             @Override
-            public void onFailure(Call<AnimeToken> call, Throwable t) {
+            public void onFailure(@NonNull Call<AnimeToken> call, @NonNull Throwable t) {
                 Log.e(TAG, "error: " + t.getMessage());
             }
         });

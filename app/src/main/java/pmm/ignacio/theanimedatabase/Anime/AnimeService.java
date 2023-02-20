@@ -20,14 +20,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface AnimeService {
-
-    @Headers("Accept: application/json")
-    @POST("token")
-//    @FormUrlEncoded
-    Call<AnimeToken> getAnimeToken(@Body RequestBody body);
-
-
-
     @GET("anime")
     Call<AnimeChunk> listAnime(
             @Header("Authorization:") String authorization,
@@ -39,11 +31,3 @@ public interface AnimeService {
     Call<AnimeDetails> animeDetails(@Path("id") int id);
 
 }
-
-
-// @Field("client_id") String clientId,
-//            @Field("client_secret") String clientSecret,
-//            @Field("code") String code,
-//            @Field("code_verifier") String codeVerifier,
-//            @Field("grant_type") String grantType,
-//            @Field("redirect_uri") String redirectUri
