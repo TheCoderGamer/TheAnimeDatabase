@@ -12,15 +12,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
 import okhttp3.RequestBody;
-import pmm.ignacio.theanimedatabase.Anime.Anime;
-import pmm.ignacio.theanimedatabase.Anime.AnimeChunk;
+import pmm.ignacio.theanimedatabase.Anime.data.Anime;
+import pmm.ignacio.theanimedatabase.Anime.data.AnimeChunk;
+import pmm.ignacio.theanimedatabase.Anime.data.AnimeNode;
 import pmm.ignacio.theanimedatabase.Anime.AnimeService;
 import pmm.ignacio.theanimedatabase.Anime.AnimeToken;
 import pmm.ignacio.theanimedatabase.Anime.AuthAnimeService;
+import pmm.ignacio.theanimedatabase.RecyclerView.AnimeAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,22 +35,21 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String API_URL = "https://api.myanimelist.net/v2/";
     private static final String AUTH_URL = "https://myanimelist.net/v1/oauth2/";
-    private static final String CLIENT_ID = "f0a1088b8a35d98ce6591e10fdc62232";
+    private static final String CLIENT_ID = BuildConfig.CLIENT_ID;
     private static final String REDIRECT_URL = "theanimedatabase://callback";
     private static final String TAG = MainActivity.class.getName();
     private AnimeService _service;
     private int _offset = 0;
     private static final int LIMIT = 20;
-    private List<Anime> _anime = new ArrayList<Anime>();
+    private ArrayList<Anime> _anime = new ArrayList<Anime>();
     private RecyclerView.Adapter _adapter;
 
+    // OAuth
     private String codeVerifier;
-    private String code;
+    private String requestToken;
+    private Boolean OAuthPhase1 = false;
 
-    public String accessToken;
-    public String tokenType;
-    public String refreshToken;
-    public int expiresIn;
+    public AnimeToken animeToken;
     public String autorization;
 
     @Override
@@ -54,23 +57,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Restore state
+        if (savedInstanceState != null) {
+            requestToken = savedInstanceState.getString("code");
+            OAuthPhase1 = savedInstanceState.getBoolean("OAuthPhase1");
+            //animeToken = savedInstanceState.getSerializable("animeToken");
+            autorization = savedInstanceState.getString("authorization");
+        }
+
         // OAuth
-        if (code == null){
-            Log.i(TAG, "No code found, requesting new one : " + code);
+        if (requestToken == null && !OAuthPhase1) {
+            Log.i(TAG, "No code found, requesting new one : " + requestToken);
             OAuthRequestPhase1();
         }
 
 
         // Retrofit API service
+        OkHttpClient client = new OkHttpClient.Builder()
+                .protocols(Collections.singletonList(Protocol.HTTP_1_1))
+                .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
                 .build();
         _service = retrofit.create(AnimeService.class);
 
 
         Button loadMoreButton = findViewById(R.id.load_more_button);
-        loadMoreButton.setOnClickListener(v -> loadChunk(_offset, LIMIT));
+        loadMoreButton.setOnClickListener(v -> AddAnime(_offset, LIMIT));
+
+        getAnime();
 
     }
 
@@ -80,9 +97,9 @@ public class MainActivity extends AppCompatActivity {
 
         // OAuth: Get code from browser
         Uri uri = getIntent().getData();
-        if (uri != null && uri.toString().startsWith(REDIRECT_URL)) {
-            code = uri.getQueryParameter("code");
-            Log.d(TAG, "code: " + code);
+        if (uri != null && uri.toString().startsWith(REDIRECT_URL) && animeToken == null) {
+            requestToken = uri.getQueryParameter("code");
+            Log.d(TAG, "[OAUTH] request token: " + requestToken);
             OAuthRequestPhase2();
         }
 
@@ -93,26 +110,29 @@ public class MainActivity extends AppCompatActivity {
     private void OAuthRequestPhase1() {
         // ----- Request code -----
         // Gen Code challenge (PKCE protocol)
-        codeVerifier = PkceGenerator.INSTANCE.generateVerifier(64);
-        String codeChallenge = codeVerifier;
-        Log.d(TAG, "code verifier: " + codeVerifier);
+        //codeVerifier = PkceGenerator.generateVerifier(64);
+        // V  Por algun motivo si no lo establezco a mano, no autentifica. ¯\_(ツ)_/¯
+        codeVerifier = "1234567890123456789012345678901234567890123456789012345678901234";
+        Log.d(TAG, "[OAUTH] code verifier: " + codeVerifier);
+        OAuthPhase1 = true;
 
         // Prepare request
         Uri uri = Uri.parse(AUTH_URL + "authorize")
                 .buildUpon()
                 .appendQueryParameter("response_type", "code")
                 .appendQueryParameter("client_id", CLIENT_ID)
-                .appendQueryParameter("code_challenge", codeChallenge)
+                .appendQueryParameter("code_challenge", codeVerifier)
                 .appendQueryParameter("state", "theanimedatabase")
                 .appendQueryParameter("redirect_uri", REDIRECT_URL)
                 .appendQueryParameter("code_challenge_method", "plain")
                 .build();
 
         // Launch browser
-        Log.d(TAG, "launch uri: " + uri.toString());
+        Log.d(TAG, "[OAUTH] launch uri: " + uri.toString());
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
+
     private void OAuthRequestPhase2() {
         // ----- Request token -----
         // Create retrofit service
@@ -126,92 +146,99 @@ public class MainActivity extends AppCompatActivity {
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("client_id", CLIENT_ID)
-                .addFormDataPart("code", code)
+                .addFormDataPart("code", requestToken)
                 .addFormDataPart("code_verifier", codeVerifier)
                 .addFormDataPart("grant_type", "authorization_code")
                 .addFormDataPart("redirect_uri", REDIRECT_URL)
                 .build();
 
         // Send request
+        Log.d(TAG, "[OAUTH] requesting access token: " + body);
         Call<AnimeToken> call = authService.getAnimeToken(body);
         call.enqueue(new Callback<AnimeToken>() {
             @Override
             public void onResponse(@NonNull Call<AnimeToken> call, @NonNull Response<AnimeToken> response) {
                 // Receive response
                 if (response.isSuccessful()) {
-                    accessToken = response.body() != null ? response.body().accessToken : null;
-                    tokenType = response.body().tokenType;
-                    refreshToken = response.body().refreshToken;
-                    expiresIn = response.body().expiresIn;
-                    autorization = tokenType + " " + accessToken;
-                    Log.d(TAG, "token: " + response.body().accessToken);
-                    Log.d(TAG, "token type: " + response.body().tokenType);
-                    Log.d(TAG, "token expires in: " + response.body().expiresIn);
-                    Log.d(TAG, "token refresh token: " + response.body().refreshToken);
+                    animeToken = response.body();
+                    assert animeToken != null; // Avoid annoying warning
+                    assert response.body() != null; // x2
+                    autorization = animeToken.tokenType + " " + animeToken.accessToken;
+                    Log.d(TAG, "[OAUTH] --- TOKEN OBTAINED ---");
+                    Log.d(TAG, "[OAUTH] access token: " + animeToken.accessToken);
+                    Log.d(TAG, "[OAUTH] token type: " + animeToken.tokenType);
+                    Log.d(TAG, "[OAUTH] expires in (mls): " + animeToken.expiresIn);
+                    Log.d(TAG, "[OAUTH] refresh token: " + animeToken.refreshToken);
+
                 } else {
-                    Log.e(TAG, "error: " + (response.body() != null ? response.body().errorType : null));
-                    Log.e(TAG, "message: " + response.body().message);
-                    Log.e(TAG, "hint: " + response.body().hint);
+                    Log.e(TAG, "[OAUTH] --- TOKEN ERROR ---");
+                    Log.e(TAG, "[OAUTH] error: " + (response.body() != null ? response.body().errorType : null));
+                    Log.e(TAG, "[OAUTH] message: " + response.body().message);
+                    Log.e(TAG, "[OAUTH] hint: " + response.body().hint);
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<AnimeToken> call, @NonNull Throwable t) {
-                Log.e(TAG, "error: " + t.getMessage());
+                Log.e(TAG, "[OAUTH] Error calling API: " + t.getMessage());
             }
         });
     }
 
 
     private void getAnime() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        _service = retrofit.create(AnimeService.class);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         _adapter = new AnimeAdapter(_anime, anime -> {
-//                 Intent intent = new Intent();
-//                 intent.setClass(MainActivity.this, AnimeDetailsActivity.class);
-//                 intent.putExtra(SpeciesDetailsActivity.NAME_KEY, species.name);
-//                 startActivity(intent);
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, AnimeDetailsActivity.class);
+            intent.putExtra(AnimeDetailsActivity.NAME_KEY, anime.title);
+            startActivity(intent);
         });
         recyclerView.setAdapter(_adapter);
+
+        //_adapter.notifyItemRangeInserted(offset, LIMIT);
+        //_offset += LIMIT;
 
 
     }
 
-    private void loadChunk(int offset, int limit) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        _service = retrofit.create(AnimeService.class);
-
-        Call<AnimeChunk> call = _service.listAnime(autorization, offset, limit);
+    private void AddAnime(int offset, int limit) {
+        Call<AnimeChunk> call = _service.listAnime(autorization,"one", offset, limit);
         call.enqueue(new Callback<AnimeChunk>() {
             @Override
             public void onResponse(Call<AnimeChunk> call, Response<AnimeChunk> response) {
                 if (response.isSuccessful()) {
-                    List<Anime> anime = response.body().data.node;
-                    _anime.addAll(anime);
-                    for (Anime a : anime) {
-                        Log.d(TAG, a.title);
+                    Log.i(TAG, "Anime received: " + response.body().data.size());
+                    for (AnimeNode a : response.body().data) {
+                        // Add anime to the arraylist
+                        _anime.add(a.node);
+                        Log.d(TAG, "Anime: " + a.node.title);
                     }
-                    _adapter.notifyItemRangeInserted(offset, LIMIT);
-                    _offset += LIMIT;
                 } else {
-                    Log.e(TAG, "Error loading chunk: " + response.code());
+                    Log.e(TAG, "Error loading anime, server responds: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<AnimeChunk> call, Throwable t) {
-                Log.e(TAG, "Error loading chunk", t);
+                Log.e(TAG, "Error calling API: ", t);
             }
         });
     }
 
 
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        OAuthPhase1 = savedInstanceState.getBoolean("OAuthPhase1");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString("authorization", autorization);
+        outState.putBoolean("OAuthPhase1", OAuthPhase1);
+        //outState.putSerializable("animeToken", animeToken);
+        super.onSaveInstanceState(outState);
+    }
 }

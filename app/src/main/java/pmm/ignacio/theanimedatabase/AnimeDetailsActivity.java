@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AnimeDetailsActivity extends AppCompatActivity {
     private static final String TAG = AnimeDetailsActivity.class.getName();
-    private static final String NAME_KEY = "NAME";
+    public static final String NAME_KEY = "NAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class AnimeDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String name = intent.getStringExtra(NAME_KEY);
-        TextView textView = findViewById(R.id.anime_name);
+        TextView textView = findViewById(R.id.anime_detail_name);
         textView.setText(name);
     }
 }

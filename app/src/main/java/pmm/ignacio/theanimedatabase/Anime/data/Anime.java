@@ -1,4 +1,4 @@
-package pmm.ignacio.theanimedatabase.Anime;
+package pmm.ignacio.theanimedatabase.Anime.data;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,10 +1,15 @@
 package pmm.ignacio.theanimedatabase.Anime;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AnimeToken {
+import java.io.Serializable;
+
+public class AnimeToken implements Serializable {
 
     @SerializedName("token_type")
     public String tokenType;
@@ -21,4 +26,5 @@ public class AnimeToken {
     public String message;
     @SerializedName("hint")
     public String hint;
+
 }

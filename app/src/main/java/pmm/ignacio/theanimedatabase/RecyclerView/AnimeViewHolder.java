@@ -1,4 +1,4 @@
-package pmm.ignacio.theanimedatabase;
+package pmm.ignacio.theanimedatabase.RecyclerView;
 
 import android.view.View;
 import android.widget.TextView;
@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
-import pmm.ignacio.theanimedatabase.Anime.Anime;
+import pmm.ignacio.theanimedatabase.Anime.data.Anime;
+import pmm.ignacio.theanimedatabase.R;
 
 public class AnimeViewHolder extends RecyclerView.ViewHolder{
 
@@ -21,12 +20,9 @@ public class AnimeViewHolder extends RecyclerView.ViewHolder{
             super(itemView);
             _animeNameTextView = itemView.findViewById(R.id.anime_name);
             this._onAnimeClickListener = onAnimeClickListener;
-            _animeNameTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (_anime != null) {
-                        _onAnimeClickListener.onAnimeClick(_anime);
-                    }
+            _animeNameTextView.setOnClickListener(view -> {
+                if (_anime != null) {
+                    _onAnimeClickListener.onAnimeClick(_anime);
                 }
             });
         }

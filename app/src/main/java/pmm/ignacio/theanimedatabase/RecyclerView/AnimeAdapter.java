@@ -1,4 +1,4 @@
-package pmm.ignacio.theanimedatabase;
+package pmm.ignacio.theanimedatabase.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import pmm.ignacio.theanimedatabase.Anime.Anime;
+import pmm.ignacio.theanimedatabase.Anime.data.Anime;
+import pmm.ignacio.theanimedatabase.R;
 
 public class AnimeAdapter extends RecyclerView.Adapter<AnimeViewHolder> {
 

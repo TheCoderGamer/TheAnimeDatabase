@@ -1,3 +1,4 @@
+secret.properties
 *.iml
 .gradle
 /local.properties

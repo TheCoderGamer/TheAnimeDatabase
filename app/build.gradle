@@ -7,6 +7,11 @@ android {
     namespace 'pmm.ignacio.theanimedatabase'
     compileSdk 33
 
+    // Include secret.properties file
+    def secretPropertiesFile = rootProject.file("secret.properties")
+    def secretProperties = new Properties()
+    secretProperties.load(new FileInputStream(secretPropertiesFile))
+
     defaultConfig {
         applicationId "pmm.ignacio.theanimedatabase"
         minSdk 28
@@ -21,6 +26,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "CLIENT_ID", secretProperties['CLIENT_ID']
+        }
+        debug {
+            buildConfigField "String", "CLIENT_ID", secretProperties['CLIENT_ID']
         }
     }
     compileOptions {
@@ -30,6 +39,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+
 }
 
 dependencies {
