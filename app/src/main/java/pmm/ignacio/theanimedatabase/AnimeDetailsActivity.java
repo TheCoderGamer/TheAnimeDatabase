@@ -102,7 +102,6 @@ public class AnimeDetailsActivity extends AppCompatActivity {
         anime_detail_popularity.setText(String.valueOf(_anime.popularity));
         anime_detail_num_episodes.setText(String.valueOf(_anime.numEpisodes));
         anime_detail_synopsis.setText(_anime.synopsis);
-        anime_detail_synopsis.setMovementMethod(new ScrollingMovementMethod());
         Picasso.get().load(_anime.mainPicture.medium).into(anime_detail_image);
         anime_detail_image.setOnClickListener(v -> {
             Intent intent = new Intent(AnimeDetailsActivity.this, AnimeDetailsImageActivity.class);

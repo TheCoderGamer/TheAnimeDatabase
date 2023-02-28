@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">The Anime Database</string>
+    <string name="more">Mas</string>
+    <string name="anime_image_desc">Imagen del anime</string>
+    <string name="anime_details_mean_label">Puntuacion:</string>
+    <string name="anime_details_rank_label">Rango:</string>
+    <string name="anime_details_popularity_label">Popular:</string>
+    <string name="start_date">Fecha inicio:</string>
+    <string name="end_date">Fecha fin:</string>
+    <string name="status">Estado:</string>
+    <string name="numEps">Nº Episodios:</string>
+    <string name="synopsis">Resumen:</string>
+    <string name="login">Iniciar Sesion</string>
+    <string name="user_not_logged_in">Usuario no ha iniciado sesion</string>
+</resources>

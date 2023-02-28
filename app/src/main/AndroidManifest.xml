@@ -15,22 +15,31 @@
         android:theme="@style/Theme.TheAnimeDatabase"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashScreen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
         </activity>
         <activity
-            android:name=".AnimeDetailsActivity">
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="fullSensor">
         </activity>
         <activity
-            android:name=".AnimeDetailsImageActivity">
+            android:name=".AnimeDetailsActivity"
+            android:screenOrientation="fullSensor">
+        </activity>
+        <activity
+            android:name=".AnimeDetailsImageActivity"
+            android:screenOrientation="fullSensor">
         </activity>
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="fullSensor"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

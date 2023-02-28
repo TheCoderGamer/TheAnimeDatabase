@@ -1,322 +1,332 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/anime_background"
     tools:context=".AnimeDetailsActivity"
     >
 
-    <TextView
-        android:id="@+id/anime_detail_name"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:textAlignment="center"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/anime_detail_alternative_en"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_image"
-        tools:text="Anime Name"
-        />
-
-    <TextView
-        android:id="@+id/anime_detail_alternative_en"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/anime_detail_alternative_ja"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_name"
-        tools:text="Anime name En"
-        />
-
-    <TextView
-        android:id="@+id/anime_detail_alternative_ja"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/anime_detail_start_date_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_alternative_en"
-        tools:text="Anime name Ja"
-        />
-
-    <TextView
-        android:id="@+id/anime_detail_start_date_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/anime_color1"
-        android:fontFamily="casual"
-        android:text="@string/start_date"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/anime_detail_start_date"
-        app:layout_constraintEnd_toStartOf="@+id/anime_detail_end_date_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_alternative_ja"
-        />
+        android:background="@color/anime_background">
 
 
-    <TextView
-        android:id="@+id/anime_detail_start_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/anime_color1"
-        android:fontFamily="casual"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/anime_detail_end_date_label"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_start_date_label"
-        tools:text="2020-01-01"
-        />
+        <TextView
+            android:id="@+id/anime_detail_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:textAlignment="center"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/anime_detail_alternative_en"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_image"
+            tools:text="Anime Name"
+            />
 
-    <TextView
-        android:id="@+id/anime_detail_end_date_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/anime_color1"
-        android:fontFamily="casual"
-        android:text="@string/end_date"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/anime_detail_end_date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/anime_detail_start_date_label"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_alternative_ja"
-        />
+        <TextView
+            android:id="@+id/anime_detail_alternative_en"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/anime_detail_alternative_ja"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_name"
+            tools:text="Anime name En"
+            />
 
-    <TextView
-        android:id="@+id/anime_detail_end_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/anime_color1"
-        android:fontFamily="casual"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/anime_detail_start_date"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_end_date_label"
-        tools:text="2020-01-01"
-        />
+        <TextView
+            android:id="@+id/anime_detail_alternative_ja"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/anime_detail_start_date_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_alternative_en"
+            tools:text="Anime name Ja"
+            />
 
-
-    <TextView
-        android:id="@+id/anime_detail_status_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/anime_color2"
-        android:fontFamily="casual"
-        android:text="@string/status"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/anime_detail_status"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_start_date"
-        />
-
-    <TextView
-        android:id="@+id/anime_detail_numEps_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/anime_color2"
-        android:fontFamily="casual"
-        android:text="@string/numEps"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/anime_detail_numEps"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_status_label"
-        />
-
-    <TextView
-        android:id="@+id/anime_detail_numEps"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/anime_color2"
-        android:fontFamily="casual"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/anime_detail_numEps_label"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_status"
-        tools:text="17eps"
-        />
-
-    <TextView
-        android:id="@+id/anime_detail_status"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/anime_color2"
-        android:fontFamily="casual"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/anime_detail_numEps"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/anime_detail_status_label"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_end_date"
-        tools:text="Airing"
-        />
+        <TextView
+            android:id="@+id/anime_detail_start_date_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/anime_color1"
+            android:fontFamily="casual"
+            android:text="@string/start_date"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/anime_detail_start_date"
+            app:layout_constraintEnd_toStartOf="@+id/anime_detail_end_date_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_alternative_ja"
+            />
 
 
-    <TextView
-        android:id="@+id/anime_detail_synopsis_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/anime_color3"
-        android:fontFamily="casual"
-        android:text="@string/synopsis"
-        android:textAlignment="center"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_numEps_label"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        <TextView
+            android:id="@+id/anime_detail_start_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/anime_color1"
+            android:fontFamily="casual"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/anime_detail_end_date_label"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_start_date_label"
+            tools:text="2020-01-01"
+            />
+
+        <TextView
+            android:id="@+id/anime_detail_end_date_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/anime_color1"
+            android:fontFamily="casual"
+            android:text="@string/end_date"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/anime_detail_end_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/anime_detail_start_date_label"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_alternative_ja"
+            />
+
+        <TextView
+            android:id="@+id/anime_detail_end_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/anime_color1"
+            android:fontFamily="casual"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/anime_detail_start_date"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_end_date_label"
+            tools:text="2020-01-01"
+            />
 
 
-    <TextView
-        android:id="@+id/anime_detail_synopsis"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/anime_color3"
-        android:fontFamily="casual"
-        android:scrollbars="vertical"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:maxLines="20"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_synopsis_label"
-        tools:text="Texto largo de prueba para ver como se ve en la pantalla"
-        />
+        <TextView
+            android:id="@+id/anime_detail_status_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/anime_color2"
+            android:fontFamily="casual"
+            android:text="@string/status"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/anime_detail_status"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_start_date"
+            />
 
-    <ImageView
-        android:id="@+id/anime_detail_image"
-        android:layout_width="225dp"
-        android:layout_height="357dp"
-        android:contentDescription="@string/anime_image_desc"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.086"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.041"
-        tools:srcCompat="@drawable/baseline_disabled_by_default_24"
-        />
+        <TextView
+            android:id="@+id/anime_detail_numEps_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/anime_color2"
+            android:fontFamily="casual"
+            android:text="@string/numEps"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/anime_detail_numEps"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_status_label"
+            />
 
+        <TextView
+            android:id="@+id/anime_detail_numEps"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/anime_color2"
+            android:fontFamily="casual"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/anime_detail_numEps_label"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_status"
+            tools:text="17eps"
+            />
 
-    <TextView
-        android:id="@+id/anime_detail_mean_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:text="@string/anime_details_mean_label"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/anime_detail_mean"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/anime_detail_image"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/anime_detail_mean"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:textAlignment="center"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/anime_detail_rank_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/anime_detail_image"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_mean_label"
-        tools:text="8.5"
-        />
-
-    <TextView
-        android:id="@+id/anime_detail_rank_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:text="@string/anime_details_rank_label"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/anime_detail_rank"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/anime_detail_image"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_mean"
-        />
-
-    <TextView
-        android:id="@+id/anime_detail_rank"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:textAlignment="center"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/anime_detail_popularity_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/anime_detail_image"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_rank_label"
-        tools:text="1163"
-        />
-
-    <TextView
-        android:id="@+id/anime_detail_popularity_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:text="@string/anime_details_popularity_label"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/anime_detail_popularity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/anime_detail_image"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_rank"
-        />
-
-    <TextView
-        android:id="@+id/anime_detail_popularity"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:textAlignment="center"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/anime_detail_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/anime_detail_image"
-        app:layout_constraintTop_toBottomOf="@+id/anime_detail_popularity_label"
-        tools:text="1163"
-        />
+        <TextView
+            android:id="@+id/anime_detail_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/anime_color2"
+            android:fontFamily="casual"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/anime_detail_numEps"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/anime_detail_status_label"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_end_date"
+            tools:text="Airing"
+            />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/anime_detail_synopsis_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/anime_color3"
+            android:fontFamily="casual"
+            android:text="@string/synopsis"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_numEps_label"
+            app:layout_constraintVertical_bias="0.0"
+            />
+
+
+        <TextView
+            android:id="@+id/anime_detail_synopsis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/anime_color3"
+            android:fontFamily="casual"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:maxLines="20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_synopsis_label"
+            tools:text="Texto largo de prueba para ver como se ve en la pantalla"
+            />
+
+        <ImageView
+            android:id="@+id/anime_detail_image"
+            android:layout_width="225dp"
+            android:layout_height="357dp"
+            android:contentDescription="@string/anime_image_desc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.086"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.041"
+            tools:srcCompat="@drawable/baseline_disabled_by_default_24"
+            />
+
+
+        <TextView
+            android:id="@+id/anime_detail_mean_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="@string/anime_details_mean_label"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/anime_detail_mean"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/anime_detail_image"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/anime_detail_mean"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:textAlignment="center"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@+id/anime_detail_rank_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/anime_detail_image"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_mean_label"
+            tools:text="8.5"
+            />
+
+        <TextView
+            android:id="@+id/anime_detail_rank_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="@string/anime_details_rank_label"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/anime_detail_rank"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/anime_detail_image"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_mean"
+            />
+
+        <TextView
+            android:id="@+id/anime_detail_rank"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:textAlignment="center"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@+id/anime_detail_popularity_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/anime_detail_image"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_rank_label"
+            tools:text="1163"
+            />
+
+        <TextView
+            android:id="@+id/anime_detail_popularity_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="@string/anime_details_popularity_label"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/anime_detail_popularity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/anime_detail_image"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_rank"
+            />
+
+        <TextView
+            android:id="@+id/anime_detail_popularity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:textAlignment="center"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@+id/anime_detail_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/anime_detail_image"
+            app:layout_constraintTop_toBottomOf="@+id/anime_detail_popularity_label"
+            tools:text="1163"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</ScrollView>
