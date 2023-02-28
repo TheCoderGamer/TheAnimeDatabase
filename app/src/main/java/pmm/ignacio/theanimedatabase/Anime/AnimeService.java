@@ -25,6 +25,9 @@ public interface AnimeService {
             @Query("offset") int offset);
 
     @GET("anime/{id}")
-    Call<AnimeDetails> animeDetails(@Path("id") int id);
+    Call<AnimeDetails> animeDetails(
+            @Header("Authorization") String authorization,
+            @Path("id") int id,
+            @Query("fields") String fields);
 
 }

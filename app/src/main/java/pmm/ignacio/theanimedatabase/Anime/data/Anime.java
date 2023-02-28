@@ -3,6 +3,7 @@ package pmm.ignacio.theanimedatabase.Anime.data;
 import com.google.gson.annotations.SerializedName;
 
 public class Anime {
+    public int id;
     public String title;
     @SerializedName("main_picture")
     public AnimePicture mainPicture;
@@ -10,7 +11,3 @@ public class Anime {
 }
 
 
-class AnimePicture {
-    private String medium;
-    private String large;
-}

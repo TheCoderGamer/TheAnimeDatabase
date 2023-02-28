@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
     <color name="colorPrimary">#FA2F2F</color>
     <color name="colorPrimary2">#FA2929</color>
     <color name="colorSecondary">#FFD700</color>
@@ -10,10 +7,11 @@
     <color name="colorStatusBar">#FFD700</color>
 
     <!--  Anime  -->
-    <color name="anime_background">#FFCCBC</color>
-    <color name="anime_item">#FFEBEE</color>
-    <color name="anime_color1">#FBE9E7</color>
-    <color name="anime_color2">#FFF3E0</color>
-    <color name="anime_color3">#FFF8E1</color>
+    <color name="anime_background">#000000</color>
+    <color name="anime_item">#505050</color>
+    <color name="anime_color1">#3A0A0A</color>
+    <color name="anime_color2">#160C42</color>
+    <color name="anime_color3">#002720</color>
+
 
 </resources>

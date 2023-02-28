@@ -42,6 +42,6 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return _animeList.size();
     }
 }
