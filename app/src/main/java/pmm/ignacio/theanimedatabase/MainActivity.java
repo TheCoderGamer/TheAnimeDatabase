@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void LoadChunk(int offset, int limit) {
         Log.i(TAG, "Loading anime from offset: " + offset + " limit: " + limit);
-        Call<AnimeChunk> call = _service.listAnime(authorization,"piece", offset, limit);
+        Call<AnimeChunk> call = _service.ranking(authorization,"all", offset, limit);
         call.enqueue(new Callback<AnimeChunk>() {
             @Override
             public void onResponse(@NonNull Call<AnimeChunk> call, @NonNull Response<AnimeChunk> response) {

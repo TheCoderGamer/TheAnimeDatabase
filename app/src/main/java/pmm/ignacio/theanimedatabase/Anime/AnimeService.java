@@ -17,12 +17,12 @@ public interface AnimeService {
             @Query("limit") int limit);
 
 
-    @GET("ranking")
+    @GET("anime/ranking")
     Call<AnimeChunk> ranking(
             @Header("Authorization") String authorization,
             @Query("ranking_type") String rankingType,
-            @Query("limit") int limit,
-            @Query("offset") int offset);
+            @Query("offset") int offset,
+            @Query("limit") int limit);
 
     @GET("anime/{id}")
     Call<AnimeDetails> animeDetails(

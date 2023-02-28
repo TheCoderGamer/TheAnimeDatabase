@@ -24,8 +24,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AnimeDetailsActivity"
-            android:exported="true">
+            android:name=".AnimeDetailsActivity">
+        </activity>
+        <activity
+            android:name=".AnimeDetailsImageActivity">
         </activity>
         <activity
             android:name=".LoginActivity"

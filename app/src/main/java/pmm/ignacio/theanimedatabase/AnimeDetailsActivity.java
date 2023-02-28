@@ -30,6 +30,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AnimeDetailsActivity extends AppCompatActivity {
+
     private static final String TAG = AnimeDetailsActivity.class.getName();
     public static final String ID_ANIME = "ID_ANIME";
     private AnimeDetails _anime;
@@ -86,6 +87,7 @@ public class AnimeDetailsActivity extends AppCompatActivity {
         TextView anime_detail_rank = findViewById(R.id.anime_detail_rank);
         TextView anime_detail_mean = findViewById(R.id.anime_detail_mean);
         TextView anime_detail_popularity = findViewById(R.id.anime_detail_popularity);
+        TextView anime_detail_num_episodes = findViewById(R.id.anime_detail_numEps);
         TextView anime_detail_synopsis = findViewById(R.id.anime_detail_synopsis);
         ImageView anime_detail_image = findViewById(R.id.anime_detail_image);
 
@@ -98,8 +100,14 @@ public class AnimeDetailsActivity extends AppCompatActivity {
         anime_detail_rank.setText(String.valueOf(_anime.rank));
         anime_detail_mean.setText(String.valueOf(_anime.mean));
         anime_detail_popularity.setText(String.valueOf(_anime.popularity));
+        anime_detail_num_episodes.setText(String.valueOf(_anime.numEpisodes));
         anime_detail_synopsis.setText(_anime.synopsis);
         anime_detail_synopsis.setMovementMethod(new ScrollingMovementMethod());
         Picasso.get().load(_anime.mainPicture.medium).into(anime_detail_image);
+        anime_detail_image.setOnClickListener(v -> {
+            Intent intent = new Intent(AnimeDetailsActivity.this, AnimeDetailsImageActivity.class);
+            intent.putExtra(AnimeDetailsImageActivity.ANIME_PICTURE, _anime.mainPicture.large);
+            startActivity(intent);
+        });
     }
 }

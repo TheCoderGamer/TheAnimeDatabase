@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FA2F2F</color>
-    <color name="colorPrimary2">#FA2929</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimary2">#000000</color>
     <color name="colorSecondary">#FFD700</color>
     <color name="colorSecondary2">#ECC702</color>
     <color name="colorStatusBar">#FFD700</color>
